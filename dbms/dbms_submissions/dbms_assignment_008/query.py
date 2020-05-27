@@ -1,0 +1,4 @@
+Q1="SELECT id,fname FROM Director d WHERE NOT EXISTS (SELECT id FROM Movie INNER JOIN MovieDirector ON Movie.id=MovieDirector.mid WHERE d.id=Moviedirector.did AND year<2000) AND EXISTS(SELECT id FROM Movie INNER JOIN MovieDirector ON Movie.id=MovieDirector.mid WHERE d.id=MovieDirector.did AND year>2000) ORDER BY id"
+Q2="SELECT Director.fname,(SELECT name FROM Movie INNER JOIN MovieDirector ON Movie.id=MovieDirector.mid WHERE Director.id=MovieDirector.did ORDER BY rank DESC Limit 1) FROM Director Limit 100"
+Q3="SELECT * FROM Actor a WHERE NOT EXISTS(SELECT id FROM Movie INNER JOIN Cast ON `Movie`.id=`Cast`.mid WHERE `a`.id=`Cast`.pid AND year BETWEEN 1990 AND 2000) ORDER BY id DESC Limit 100"
+  

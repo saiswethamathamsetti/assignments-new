@@ -1,0 +1,13 @@
+Q1="SELECT AVG(age) FROM Player"
+Q2="SELECT match_no,play_date FROM Match WHERE audience>50000 ORDER BY match_no ASC"
+Q3="SELECT team_id,COUNT(win_lose) FROM MatchTeamDetails WHERE win_lose='W' GROUP BY team_id ORDER BY COUNT(win_lose) DESC,team_id ASC"
+Q4="SELECT match_no,play_date FROM Match WHERE stop1_sec>(SELECT AVG(stop1_sec) FROM Match) ORDER BY match_no DESC,play_date DESC"
+Q5="SELECT MatchCaptain.match_no,Team.name,Player.name FROM MatchCaptain INNER JOIN Team ON MatchCaptain.team_id=Team.team_id INNER JOIN Player ON Player.player_id=MatchCaptain.captain ORDER BY MatchCaptain.match_no ASC,Team.name ASC"
+Q6="SELECT Match.match_no,Player.name,Player.jersey_no FROM Match INNER JOIN Player ON Match.player_of_match=Player.player_id ORDER BY Match.match_no"
+Q7="SELECT Team.name,AVG(player.age) FROM Team INNER JOIN Player ON Team.team_id=Player.team_id GROUP BY Player.team_id HAVING AVG(Player.age)>26 ORDER BY Team.name ASC"
+Q8="SELECT Player.name,Player.jersey_no,Player.age,COUNT(GoalDetails.goal_id) FROM Player INNER JOIN GoalDetails ON Player.player_id=GoalDetails.player_id GROUP BY GoalDetails.player_id HAVING Player.age<=27 ORDER BY COUNT(goal_id) DESC,Player.name ASC"
+Q9="SELECT team_id,COUNT(goal_id)*100.0/(SELECT COUNT(goal_id) FROM GoalDetails)  FROM GoalDetails GROUP BY team_id" 
+Q10="SELECT AVG(goal_avg) AS avg_score FROM (SELECT COUNT(goal_id) AS goal_avg FROM GoalDetails GROUP BY team_id)"
+Q11="SELECT Player.player_id,Player.name,Player.date_of_birth FROM Player WHERE NOT EXISTS (SELECT GoalDetails.player_id FROM GoalDetails WHERE GoalDetails.Player_id=Player.player_id)"
+Q12="SELECT Team.name,Match.match_no,audience,audience-(SELECT AVG(audience) FROM Match INNER JOIN MatchTeamDetails ON Match.match_no=MatchTeamDetails.match_no WHERE Team.team_id=MatchTeamDetails.team_id GROUP BY MatchTeamDetails.team_id) FROM Team INNER JOIN MatchTeamDetails ON Team.team_id=MatchTeamDetails.team_id INNER JOIN Match ON Match.match_no=MatchTeamDetails.match_no ORDER BY Match.match_no ASC"
+  
